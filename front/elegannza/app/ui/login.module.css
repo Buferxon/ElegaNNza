@@ -1,0 +1,9 @@
+.bg{
+
+    background-color: #070C20;
+    position: fixed;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    /* opacity: 10%; */
+}
