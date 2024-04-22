@@ -1,0 +1,25 @@
+{
+    "translation": {
+        "idioma_in": "English",
+        "idioma_es": "Spanish",
+        "inicio_sesion": "Login",
+        "nombre_usuario": "User name",
+        "contraseña": "Password",
+        "ingresar": "Log in",
+        "separador": "Or",
+        "registrarse": "Sign up",
+        "registro": "User registration",
+        "rg_nombre": "First Name",
+        "rg_apellido": "Last Name",
+        "rg_fechaNaci": "Date of Birth",
+        "rg_tDocument": "Document Type",
+        "rg_indetificacio": "Identification Number",
+        "rg_email": "Email",
+        "rg_contrasena": "Password",
+        "rg_validarContra": "Confirm Password",
+        "rg_aceptaTerminos": "Accepts terms and conditions",
+        "al_usuarioInc": "Incorrect username",
+        "al_passwordInc": "Incorrect password",
+        "al_tlAlertCredencial": "Credentials"
+    }
+}

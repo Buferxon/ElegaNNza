@@ -1,0 +1,25 @@
+{
+    "translation": {
+        "idioma_in":"Ingles",
+        "idioma_es":"español",
+        "inicio_sesion": "Inicio de sesión",
+        "nombre_usuario": "Nombre de usuario",
+        "contraseña": "Contraseña",
+        "ingresar": "Ingresar",
+        "separador": "O",
+        "registrarse": "Registrarse",
+        "registro":"Resgistro de usuario",
+        "rg_nombre":"Nombre",
+        "rg_apellido":"Apellido",
+        "rg_fechaNaci":"Fecha de nacimiento",
+        "rg_tDocument":"Tipo de documento",
+        "rg_indetificacio":"Numero de identificacion",
+        "rg_email":"Correo electronico",
+        "rg_contrasena":"Contraseña",
+        "rg_validarContra":"Validar Contraseña",
+        "rg_aceptaTerminos":"Acepta terminos y condiciones",
+        "al_usuarioInc":"Usuario incorrecto",
+        "al_passwordInc":"Contraseña incorrecta",
+        "al_tlAlertCredencial":"Credenciales"
+    }
+}
