@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 
 async function logIn(req, res) {
 	try {
-		const { user_name, password } = req.body;
+		const { user_name=null, password=null } = req.body;
+
+
 
 		const collection = conexionDB.collection("user");
 
@@ -13,7 +15,7 @@ async function logIn(req, res) {
 			process.env.CODE_SECRET_DATA
 		).toString();
 
-		console.log(hashedPassword);
+		// console.log(hashedPassword);
 
 		const resultado = await collection.findOne({
 			user_name: user_name,
@@ -22,12 +24,10 @@ async function logIn(req, res) {
 
 		// console.log(resultado,"asdasdasdasd")
 
-		console.log(resultado.user_name);
+		
 
 		if (resultado != null) {
 
-
-			
 
 			const token = jwt.sign(
 				{
