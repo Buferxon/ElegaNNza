@@ -3,21 +3,49 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const routerLogin= require("./routes/routerLogin");
+const conexionDB = require("./security/conexion");
+
 // Crear una instancia de la aplicación Express
 const app = express();
 
-// Configurar el middleware CORS para permitir solicitudes de todos los dominios
+app.use(express.json());
+
 app.use(cors());
 
-// Ruta de ejemplo
+
+
+
 app.get("/", (req, res) => {
-	res.send("¡Hola, mundo!");
+	res.setHeader("Content-type", "text/html");
+	res.send(
+		'<!DOCTYPE html><html><head><title>Central</title></head><body style="background-color:#2A7AA2; color:#ffffff;text-align:center;font-size:30px"><h1>Bienvenido a Central </h1><p>Api desarrollada en Nodejs</p></body></html>'
+	);
 });
+
+
+
+
+
+app.use("/login",routerLogin)
 
 // Puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
 
+
+
+
+app.use(function (req, res, next) {
+	next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+	res.status(err.status || 500);
+	res.send("No existe este modulo especificado");
+});
+
 // Iniciar el servidor
+
 app.listen(PORT, () => {
-	console.log(`Servidor iniciado en el puerto ${PORT}`);
+  console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
