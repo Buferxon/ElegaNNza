@@ -60,9 +60,9 @@ const SingUp = ({ setLanguage, language, setModalVisible, modalVisible, navigati
           }}
           onValueChange={(value)=>setTDocument(value)}
           items={[
-            {label:'Cedula', value: 'cc'},
-            {label:'Pasaporte', value: 'pp'},
-            {label:'Cedula Ext.', value: 'ce'},
+            {label:t('rg_slCedula'), value: 'CC'},
+            {label:t('rg_slTarjeta'), value: 'TI'},
+            {label:t('rg_slCExt'), value: 'CE'},
           ]}
           placeholder={{ label:t('rg_tDocument'), value: null }}
           //placeholderTextColor = "#FFFFFF"

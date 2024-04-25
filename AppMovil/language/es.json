@@ -18,6 +18,9 @@
         "rg_contrasena":"Contraseña",
         "rg_validarContra":"Validar Contraseña",
         "rg_aceptaTerminos":"Acepta terminos y condiciones",
+        "rg_slCedula":"Cedula",
+        "rg_slTarjeta":"Tarjeta de identidad",
+        "rg_slCExt":"Cedula Extranjera",
         "al_usuarioInc":"Usuario incorrecto",
         "al_passwordInc":"Contraseña incorrecta",
         "al_tlAlertCredencial":"Credenciales"

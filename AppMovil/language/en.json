@@ -18,6 +18,9 @@
         "rg_contrasena": "Password",
         "rg_validarContra": "Confirm Password",
         "rg_aceptaTerminos": "Accepts terms and conditions",
+        "rg_slCedula": "Identification Card",
+        "rg_slTarjeta": "Identity Card",
+        "rg_slCExt": "Foreigner ID",
         "al_usuarioInc": "Incorrect username",
         "al_passwordInc": "Incorrect password",
         "al_tlAlertCredencial": "Credentials"
