@@ -9,6 +9,7 @@ import {
 import React, { useState } from 'react'
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
+import RNPickerSelect from 'react-native-picker-select';
 
 const SingUp = ({ setLanguage, language, setModalVisible, modalVisible, navigation }) => {
 
@@ -53,20 +54,18 @@ const SingUp = ({ setLanguage, language, setModalVisible, modalVisible, navigati
           placeholder={t('rg_apellido')}
           placeholderTextColor="#FFFFFF"
         />
-        <TextInput
-          style={styles.input}
-          placeholder={t('rg_fechaNaci')}
-          value={dateN}
-          // onFocus={handleInputFocus}
-          // onBlur={handleInputBlur}
-          // editable={false}
-        />
-        <TextInput
-          style={styles.input}
-          // onChangeText={setTDocument}
-          // value={tDocument}
-          placeholder={t('rg_tDocument')}
-          placeholderTextColor="#FFFFFF"
+        <RNPickerSelect
+          style={{
+            inputAndroid: styles.input
+          }}
+          onValueChange={(value)=>setTDocument(value)}
+          items={[
+            {label:'Cedula', value: 'cc'},
+            {label:'Pasaporte', value: 'pp'},
+            {label:'Cedula Ext.', value: 'ce'},
+          ]}
+          placeholder={{ label:t('rg_tDocument'), value: null }}
+          //placeholderTextColor = "#FFFFFF"
         />
         <TextInput
           style={styles.input}

@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
-import { Platform, NativeModules } from 'react-native';
+
 
 import en from './en.json';
 import es from './es.json';

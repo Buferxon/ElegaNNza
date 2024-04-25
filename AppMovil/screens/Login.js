@@ -2,9 +2,7 @@ import { StyleSheet, Text, View, Button, TextInput, ActivityIndicator, Image, To
 import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
-
-
-const funtionlog = require('../funtions/login')
+//const funtionlog = require('../funtions/login')
 
 const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigation }) => {
 
@@ -21,9 +19,9 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
       />
     )
   }
-  const createAlert = (cod) =>{
-    const valCod = cod._j ===  "E1" ? t('al_usuarioInc') : t('al_passwordInc')
-    Alert.alert(t('al_tlAlertCredencial'),valCod , [
+  const createAlert = (cod) => {
+    const valCod = cod._j === "E1" ? t('al_usuarioInc') : t('al_passwordInc')
+    Alert.alert(t('al_tlAlertCredencial'), valCod, [
       {
         text: 'Salir',
         onPress: () => console.log('Ask me later pressed'),
@@ -60,27 +58,21 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
           secureTextEntry={true}
           placeholderTextColor="#FFFFFF"
         />
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.button}
-          onPress={()=>{
-            const valLog = funtionlog.log(userName, password)
-            if(valLog === true){
-              console.log("entro hpta")
-            }else{
-              console.log(valLog)
-              createAlert(valLog)
-            }
-          }}
+          onPress={
+            () =>  navigation('Home')
+          }
         >
           <Text style={styles.buttonText}>{t('ingresar')}</Text>
         </TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%' }}>
-            <View style={{ flex: 1, height: 1, backgroundColor: '#696969' }} />
-            <Text style={styles.text}>{t('separador')}</Text>
-            <View style={{ flex: 1, height: 1, backgroundColor: '#696969' }} />
-          </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%' }}>
+          <View style={{ flex: 1, height: 1, backgroundColor: '#696969' }} />
+          <Text style={styles.text}>{t('separador')}</Text>
+          <View style={{ flex: 1, height: 1, backgroundColor: '#696969' }} />
+        </View>
         <TouchableOpacity style={styles.button}
-          onPress = {
+          onPress={
             () => navigation('SignUp')
           }
         >
@@ -134,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 12,
-    marginHorizontal:5,
+    marginHorizontal: 5,
   }
 });
 
