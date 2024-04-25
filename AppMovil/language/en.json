@@ -15,6 +15,8 @@
         "rg_tDocument": "Document Type",
         "rg_indetificacio": "Identification Number",
         "rg_email": "Email",
+        "rg_phone": "Contact Number",
+        "rg_adress": "Home Address" ,
         "rg_contrasena": "Password",
         "rg_validarContra": "Confirm Password",
         "rg_aceptaTerminos": "Accepts terms and conditions",
@@ -23,6 +25,7 @@
         "rg_slCExt": "Foreigner ID",
         "al_usuarioInc": "Incorrect username",
         "al_passwordInc": "Incorrect password",
-        "al_tlAlertCredencial": "Credentials"
+        "al_tlAlertCredencial": "Credentials",
+        "rg_btnRegist": "Register"
     }
 }

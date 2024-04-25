@@ -14,6 +14,8 @@
         "rg_fechaNaci":"Fecha de nacimiento",
         "rg_tDocument":"Tipo de documento",
         "rg_indetificacio":"Numero de identificacion",
+        "rg_phone":"Numero de contacto",
+        "rg_adress":"Direccion de vivienda",
         "rg_email":"Correo electronico",
         "rg_contrasena":"Contraseña",
         "rg_validarContra":"Validar Contraseña",
@@ -23,6 +25,7 @@
         "rg_slCExt":"Cedula Extranjera",
         "al_usuarioInc":"Usuario incorrecto",
         "al_passwordInc":"Contraseña incorrecta",
-        "al_tlAlertCredencial":"Credenciales"
+        "al_tlAlertCredencial":"Credenciales",
+        "rg_btnRegist":"Registrase"
     }
 }
