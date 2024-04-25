@@ -15,7 +15,6 @@ const cookieJwtAuthSpecific = (expectedAppType) => {
 				if (err) {
 					return res.status(403).json({ error: "Token no válido" });
 				}
-				console.log(decoded);
 
 				if (decoded.user_type !== expectedAppType) {
 					return res
