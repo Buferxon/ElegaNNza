@@ -26,6 +26,18 @@
         "al_usuarioInc":"Usuario incorrecto",
         "al_passwordInc":"Contraseña incorrecta",
         "al_tlAlertCredencial":"Credenciales",
-        "rg_btnRegist":"Registrase"
+        "rg_btnRegist":"Registrase",
+        "rg_errName":"Debe llenar el campo de Nombre",
+        "rg_errLastName":"Debe llenar el campo de Apellido",
+        "rg_errTypeD":"Debe Elegir un tipo de documento",
+        "rg_errNidenty":"Debe llenar el campo de Numero de Identificacion",
+        "rg_errNContact":"Debe llenar el campo de Numero de Contacto",
+        "rg_errAd":"Debe llenar el campo de Dirección",
+        "rg_errEmail":"Debe llenar el campo de Correo Electronico",
+        "rg_errPasworNConcide":"Las contraseñas no coinciden",
+        "rg_errPassNo":"Debe llenar el campo de Contraseña",
+        "rg_errPassVNo":"Debe llenar el campo de Validar Contraseña",
+        "hm_bienvenida":"Con ElegaNNza viste tu esencia y descubre tu estilo",
+        "hm_HomeScreem":"Inicio"
     }
 }

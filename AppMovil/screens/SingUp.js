@@ -14,6 +14,7 @@ import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
 import RNPickerSelect from 'react-native-picker-select';
 import { MaterialIcons } from '@expo/vector-icons';
+import FuntionReg from "../funtions/SignUp";
 
 const SingUp = ({ setLanguage, language, setModalVisible, modalVisible, navigation }) => {
 
@@ -47,16 +48,56 @@ const SingUp = ({ setLanguage, language, setModalVisible, modalVisible, navigati
     setShowVPassword(!showVPassword);
   };
 
-const registUser = ()=>{
+const registUser = async ()=>{
   if (formData.password !== formData.vPassword) {
-    Alert.alert('Error', 'Las contraseñas no coinciden');
+    Alert.alert('Error',t('rg_errPasworNConcide'));
     return;
   }else if(formData.name.length === 0){
-    Alert.alert('Error', 'Debe llenar el campo de nombre');
+    Alert.alert('Error', t('rg_errName'));
+    return;
+  }else if(formData.lastName.length === 0){
+    Alert.alert('Error', t('rg_errLastName'));
+    return;
+  }else if(formData.tDocument.length === 0){
+    Alert.alert('Error', t('rg_errTypeD'));
+    return;
+  }else if(formData.identification.length === 0){
+    Alert.alert('Error', t('rg_errNidenty'));
+    return;
+  }else if(formData.phone.length === 0){
+    Alert.alert('Error', t('rg_errNContact'));
+    return;
+  }else if(formData.adress.length === 0){
+    Alert.alert('Error', t('rg_errAd'));
+    return;
+  }else if(formData.email.length === 0){
+    Alert.alert('Error', t('rg_errEmail'));
+    return;
+  }else if(formData.password.length === 0){
+    Alert.alert('Error', t('rg_errPassNo'));
+    return;
+  }else if(formData.vPassword.length === 0){
+    Alert.alert('Error', t('rg_errPassVNo'));
     return;
   }
-  console.log('Registro exitoso');
+  await FuntionReg.registerUser(formData);
+  clearFormData();
+  navigation('Login');
+  //console.log('Registro exitoso');
 }
+const clearFormData = () => {
+  setFormData({
+    name: '',
+    lastName: '',
+    tDocument: '',
+    identification: '',
+    email: '',
+    password: '',
+    vPassword: '',
+    phone: '',
+    address: ''
+  });
+};
 
   return (
     isLoad ? (
@@ -97,13 +138,14 @@ const registUser = ()=>{
             {label:t('rg_slTarjeta'), value: 'TI'},
             {label:t('rg_slCExt'), value: 'CE'},
           ]}
-          placeholder={{ label:t('rg_tDocument'), value: null }}
+          placeholder={{ label:t('rg_tDocument'), value: '' }}
           //placeholderTextColor = "#FFFFFF"
         />
         <TextInput
           style={styles.input}
           onChangeText={(text) => handleInputChange('identification', text)}
           value={formData.identification}
+          keyboardType={'numeric'}
           placeholder={t('rg_indetificacio')}
           placeholderTextColor="#FFFFFF"
           required={true}
@@ -112,6 +154,7 @@ const registUser = ()=>{
           style={styles.input}
           onChangeText={(text) => handleInputChange('phone', text)}
           value={formData.phone}
+          keyboardType={'numeric'}
           placeholder={t('rg_phone')}
           placeholderTextColor="#FFFFFF"
           required={true}

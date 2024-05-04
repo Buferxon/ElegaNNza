@@ -8,9 +8,11 @@ import Home from './screens/Home';
 import { Image, Button, TouchableOpacity } from 'react-native';
 import i18n from './language/translate'
 import { useTranslation } from 'react-i18next';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function LogoTitle() {
   return (
@@ -67,7 +69,6 @@ function MyStack() {
           headerLeft: (props) => <LogoTitle {...props} />,
           headerTitle: `${t('inicio_sesion')}`,
           headerRight: () => (
-            // Botón para cambiar idioma
             <ImageButton onPress={() => setModalVisible(true)} />
           )
         }}
@@ -102,11 +103,13 @@ function MyStack() {
             language={language}
             setModalVisible={setModalVisible}
             modalVisible={modalVisible}
+            navigation={props.navigation.navigate}
           />
         )}
       </Stack.Screen>
       <Stack.Screen
         name='Home'
+        options={{ headerShown: false }}
       >
         {(props) => (
           <Home

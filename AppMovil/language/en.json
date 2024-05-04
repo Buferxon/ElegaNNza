@@ -26,6 +26,18 @@
         "al_usuarioInc": "Incorrect username",
         "al_passwordInc": "Incorrect password",
         "al_tlAlertCredencial": "Credentials",
-        "rg_btnRegist": "Register"
+        "rg_btnRegist": "Register",
+        "rg_errName": "You must fill in the Name field",
+        "rg_errLastName": "You must fill in the Last Name field",
+        "rg_errTypeD": "You must choose a document type",
+        "rg_errNidenty": "You must fill in the Identification Number field",
+        "rg_errNContact": "You must fill in the Contact Number field",
+        "rg_errAd": "You must fill in the Address field",
+        "rg_errEmail": "You must fill in the Email field",
+        "rg_errPasworNConcide": "Passwords do not match",
+        "rg_errPassNo": "You must fill in the Password field",
+        "rg_errPassVNo": "You must fill in the Validate Password field",
+        "hm_bienvenida":"With ElegaNNza dress your essence and discover your style.",
+        "hm_HomeScreem":"Home"
     }
 }

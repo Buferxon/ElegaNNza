@@ -19,16 +19,6 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
       />
     )
   }
-  const createAlert = (cod) => {
-    const valCod = cod._j === "E1" ? t('al_usuarioInc') : t('al_passwordInc')
-    Alert.alert(t('al_tlAlertCredencial'), valCod, [
-      {
-        text: 'Salir',
-        onPress: () => console.log('Ask me later pressed'),
-      },
-    ])
-  }
-
   return (
     isLoad ? (
       <View style={styles.activity}>
