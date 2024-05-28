@@ -1,0 +1,32 @@
+.bg{
+  
+    background-color: #070C20;
+    background-size: cover;
+    width: 12000px;
+    height: 12000px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+}
+
+.bg-logo{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../public/LOGO.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 10%;
+    right: 8px;
+}
+
+.ContentBox{
+    display: flex;
+}
+
+.Content{
+    margin-left: 8px;
+}

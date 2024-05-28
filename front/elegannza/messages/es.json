@@ -1,0 +1,11 @@
+{
+    "login":"INICIAR SESIÓN",
+    "username_placeholder":"Nombre de usuario",
+    "password_placeholder":"Contraseña",
+    "home":"Inicio",
+    "clients":"Clientes",
+    "products":"Productos",
+    "sellings": "Ventas",
+    "admin": "Administración"
+    
+}

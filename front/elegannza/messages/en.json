@@ -1,0 +1,11 @@
+{
+    "login":"LOG IN",
+    "username_placeholder":"Username",
+    "password_placeholder":"Password",
+    "home":"Home",
+    "clients":"Clients",
+    "products":"Products",
+    "sellings": "Sellings",
+    "admin": "Management"
+
+}
