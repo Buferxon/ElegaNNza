@@ -33,13 +33,51 @@ const userSchemaUpdate = Joi.object({
 
 async function getUsers(req, res) {
 	try {
-		const user_type = req.query.user_type;
-		console.log("Tipo de usuario:", user_type);
+		const {
+			user_type,
+			name,
+			last_name,
+			user_name,
+			status,
+			identification_type,
+			identification_number,
+			phone,
+			address,
+		} = req.query;
+
+		let query = {};
+
+		if (name !== undefined) {
+			query.name = name;
+		}
+		if (user_type !== undefined) {
+			query.user_type = parseInt(user_type);
+		}
+		if (last_name !== undefined) {
+			query.last_name = last_name;
+		}
+		if (user_name !== undefined) {
+			query.user_name = user_name;
+		}
+		if (status !== undefined) {
+			query.status = parseInt(status);
+		}
+		if (identification_type !== undefined) {
+			query.identification_type = identification_type;
+		}
+		if (phone !== undefined) {
+			query.phone = parseInt(phone);
+		}
+		if (address !== undefined) {
+			query.address = address;
+		}
+		if (identification_number !== undefined) {
+			query.identification_number = identification_number;
+		}
 
 		const collectionUser = await conexionDB.collection("user");
-		query = { user_type: parseInt(user_type) };
+
 		const users = await collectionUser.find(query).toArray();
-		console.log("Usuarios encontrados:", users);
 
 		res.status(200).json(users);
 	} catch (error) {
@@ -71,25 +109,6 @@ async function getUserInfo(req, res) {
 }
 
 //* Trae un usuarip
-async function getOneUser(req, res) {
-	try {
-		const collectionUser = await conexionDB.collection("user");
-
-		// console.log(req.user);
-
-		user_name = req.user.user_name;
-		const result = await collectionUser.findOne({
-			user_name: user_name,
-		});
-
-		res.status(200).json(result);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({
-			error: "Internal Server Error",
-		});
-	}
-}
 
 //* inserta varios usuarios
 async function insertUsers(req, res) {
@@ -103,7 +122,7 @@ async function insertUsers(req, res) {
 
 		const collectionUser = await conexionDB.collection("user");
 
-		// Validar cada usuario
+		// Validar cada usuario y hashear la contraseña
 		const validUsers = await Promise.all(
 			users.map(async (user) => {
 				const validation = userSchema.validate(user, { abortEarly: false });
@@ -125,16 +144,16 @@ async function insertUsers(req, res) {
 					);
 				}
 
-				// Hashear la contraseña
+				// Hashear la contraseña y eliminar el campo password
 				const hashedPassword = CryptoJS.SHA256(
 					user.password,
 					process.env.CODE_SECRET_DATA
 				).toString();
 
-				return {
-					...user,
-					password_hash: hashedPassword,
-				};
+				delete user.password; // Eliminar el campo password
+				user.password_hash = hashedPassword; // Agregar el campo password_hash
+
+				return user;
 			})
 		);
 
@@ -145,7 +164,7 @@ async function insertUsers(req, res) {
 			insertedCount: validUsers.length,
 		});
 	} catch (error) {
-		console.log("Error insertando usuarios:", error);
+		// console.log("Error insertando usuarios:", error);
 
 		if (error.isJoi) {
 			return res.status(400).json({
@@ -219,7 +238,7 @@ async function updateUser(req, res) {
 
 		res.status(200).json({ message: "Usuario actualizado exitosamente" });
 	} catch (error) {
-		console.log("Error actualizando usuario:", error);
+		// console.log("Error actualizando usuario:", error);
 		res.status(500).json({ error: "Error interno del servidor" });
 	}
 }
