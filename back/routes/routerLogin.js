@@ -5,7 +5,7 @@ const loginControllers= require('../controllers/loginController')
 
 
 
-    routerLogin.get("/", loginControllers.logIn);
+    routerLogin.post("/", loginControllers.logIn);
     
 
 
