@@ -17,11 +17,51 @@ const userSchema = Joi.object({
 	address: Joi.string().required(),
 });
 
+const userSchemaUpdate = Joi.object({
+	name: Joi.string().optional(),
+	last_name: Joi.string().optional(),
+	user_name: Joi.string().optional(),
+	password: Joi.string().optional(),
+	user_type: Joi.number().optional(),
+	status: Joi.number().optional(),
+	registration_date: Joi.date().optional(),
+	identification_type: Joi.string().optional(),
+	identification_number: Joi.number().optional(),
+	phone: Joi.number().optional(),
+	address: Joi.string().optional(),
+});
+
 async function getUsers(req, res) {
 	try {
+		const user_type = req.query.user_type;
+		console.log("Tipo de usuario:", user_type);
+
 		const collectionUser = await conexionDB.collection("user");
-		const users = await collectionUser.find({}).toArray();
+		query = { user_type: parseInt(user_type) };
+		const users = await collectionUser.find(query).toArray();
+		console.log("Usuarios encontrados:", users);
+
 		res.status(200).json(users);
+	} catch (error) {
+		console.log("Error en getUsers:", error);
+		res.status(500).json({
+			error: "Internal Server Error",
+		});
+	}
+}
+
+async function getUserInfo(req, res) {
+	try {
+		const collectionUser = await conexionDB.collection("user");
+
+		// console.log(req.user);
+
+		user_name = req.user.user_name;
+		const result = await collectionUser.findOne({
+			user_name: user_name,
+		});
+
+		res.status(200).json(result);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
@@ -30,7 +70,28 @@ async function getUsers(req, res) {
 	}
 }
 
+//* Trae un usuarip
+async function getOneUser(req, res) {
+	try {
+		const collectionUser = await conexionDB.collection("user");
 
+		// console.log(req.user);
+
+		user_name = req.user.user_name;
+		const result = await collectionUser.findOne({
+			user_name: user_name,
+		});
+
+		res.status(200).json(result);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			error: "Internal Server Error",
+		});
+	}
+}
+
+//* inserta varios usuarios
 async function insertUsers(req, res) {
 	try {
 		const users = req.body;
@@ -51,7 +112,6 @@ async function insertUsers(req, res) {
 					throw validation.error;
 				}
 
-				
 				const existingUser = await collectionUser.findOne({
 					$or: [
 						{ user_name: user.user_name },
@@ -78,7 +138,6 @@ async function insertUsers(req, res) {
 			})
 		);
 
-		
 		await collectionUser.insertMany(validUsers);
 
 		res.status(200).json({
@@ -106,7 +165,68 @@ async function insertUsers(req, res) {
 	}
 }
 
+//* actualiza un usuario
+async function updateUser(req, res) {
+	try {
+		const { user_name } = req.query; // Extraer user_name de los query parameters
+		const userUpdates = req.body;
+
+		if (!user_name) {
+			return res
+				.status(400)
+				.json({ error: "El nombre de usuario es requerido" });
+		}
+
+		// Validar la entrada del usuario
+		const validation = userSchemaUpdate.validate(userUpdates, {
+			abortEarly: false,
+		});
+		if (validation.error) {
+			return res.status(400).json({
+				error: "Error en la validación de datos",
+				details: validation.error.details.map((e) => e.message),
+			});
+		}
+
+		const collectionUser = await conexionDB.collection("user");
+
+		// Verificar si el usuario existe
+		const existingUser = await collectionUser.findOne({ user_name: user_name });
+		if (!existingUser) {
+			return res.status(404).json({ error: "Usuario no encontrado" });
+		}
+
+		// Hashear la nueva contraseña si ha cambiado
+		if (userUpdates.password) {
+			userUpdates.password_hash = CryptoJS.SHA256(
+				userUpdates.password,
+				process.env.CODE_SECRET_DATA
+			).toString();
+			delete userUpdates.password; // Eliminar la contraseña en texto plano de las actualizaciones
+		} else {
+			delete userUpdates.password_hash; // Asegurarse de que no se sobrescribe el hash de la contraseña existente
+		}
+
+		// Actualizar el usuario en la base de datos
+		const updateResult = await collectionUser.updateOne(
+			{ user_name: user_name },
+			{ $set: userUpdates }
+		);
+
+		if (updateResult.modifiedCount === 0) {
+			return res.status(500).json({ error: "Error actualizando el usuario" });
+		}
+
+		res.status(200).json({ message: "Usuario actualizado exitosamente" });
+	} catch (error) {
+		console.log("Error actualizando usuario:", error);
+		res.status(500).json({ error: "Error interno del servidor" });
+	}
+}
+
 module.exports = {
 	getUsers,
 	insertUsers,
+	getUserInfo,
+	updateUser,
 };

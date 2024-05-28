@@ -1,31 +1,43 @@
 const jwt = require("jsonwebtoken");
 
-async function generateNewToken(token){
-    let newToken = token;
+async function generateNewToken(token) {
+	return new Promise((resolve, reject) => {
+		jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
+			if (err) {
+				console.error("Error al verificar el token:", err);
+				return resolve(token); // Si hay un error, devolver el token original
+			}
 
-    jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
-        if (err) {
-            console.error("Error al verificar el token:", err);
-        } else {
-            if((Date.now() - decoded.exp * 1000) < 900000 && (Date.now() - decoded.exp * 1000) > 60000){
-                const user = decoded;
-                newToken = jwt.sign(
-                    {
-                        user_name: user.user_name,
-                        name_role: user.name_role,
-                    },
-                    process.env.SECRET_TOKEN,
-                    {
-                        expiresIn: "1h",
-                    }
-                )
-            }
-        }
-    });
+			const currentTime = Date.now();
+			const expirationTime = decoded.exp * 1000;
+			const timeUntilExpiration = expirationTime - currentTime;
 
-    return newToken;
+			// Verificar si el token está cerca de expirar (entre 15 minutos y 1 minuto antes de expirar)
+			if (timeUntilExpiration < 900000 && timeUntilExpiration > 60000) {
+				// Determinar el tiempo de expiración según el tipo de usuario
+				let expiresIn = "1h"; // valor por defecto
+
+				if (decoded.user_type === "movil") {
+					expiresIn = "30d";
+				}
+
+				const newToken = jwt.sign(
+					{
+						user_name: decoded.user_name,
+						user_type: decoded.user_type,
+					},
+					process.env.SECRET_TOKEN,
+					{ expiresIn }
+				);
+
+				return resolve(newToken); // Devolver el nuevo token
+			} else {
+				return resolve(token); // Si no es necesario renovar, devolver el token original
+			}
+		});
+	});
 }
 
 module.exports = {
-    generateNewToken
-}
+	generateNewToken,
+};
