@@ -16,7 +16,7 @@
         "rg_indetificacio": "Identification Number",
         "rg_email": "Email",
         "rg_phone": "Contact Number",
-        "rg_adress": "Home Address" ,
+        "rg_adress": "Home Address",
         "rg_contrasena": "Password",
         "rg_validarContra": "Confirm Password",
         "rg_aceptaTerminos": "Accepts terms and conditions",
@@ -37,7 +37,10 @@
         "rg_errPasworNConcide": "Passwords do not match",
         "rg_errPassNo": "You must fill in the Password field",
         "rg_errPassVNo": "You must fill in the Validate Password field",
-        "hm_bienvenida":"With ElegaNNza dress your essence and discover your style.",
-        "hm_HomeScreem":"Home"
+        "hm_bienvenida": "With ElegaNNza dress your essence and discover your style.",
+        "hm_HomeScreem": "Home",
+        "hm_Catalog": "Catalog",
+        "hm_Carts": "Cart",
+        "hm_Offers": "Offers"
     }
 }

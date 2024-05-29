@@ -38,6 +38,9 @@
         "rg_errPassNo":"Debe llenar el campo de Contraseña",
         "rg_errPassVNo":"Debe llenar el campo de Validar Contraseña",
         "hm_bienvenida":"Con ElegaNNza viste tu esencia y descubre tu estilo",
-        "hm_HomeScreem":"Inicio"
+        "hm_HomeScreem":"Inicio",
+        "hm_Catalog":"Catalogo",
+        "hm_Carts":"Carrito",
+        "hm_Offers":"Ofertas"
     }
 }

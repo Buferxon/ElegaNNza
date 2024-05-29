@@ -19,6 +19,29 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
       />
     )
   }
+  const Log = async (user_name,password)=>{
+    try {
+      const response = await fetch(
+        'https://elegannza.onrender.com/',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_name: user_name,
+            password: password
+          }),
+        }
+      );
+      const json = await response.json();
+      console.log(json);
+      
+      //navigation('Home')
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     isLoad ? (
       <View style={styles.activity}>
@@ -51,7 +74,7 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
         <TouchableOpacity
           style={styles.button}
           onPress={
-            () =>  navigation('Home')
+            () =>Log(userName,password)
           }
         >
           <Text style={styles.buttonText}>{t('ingresar')}</Text>
@@ -63,7 +86,7 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
         </View>
         <TouchableOpacity style={styles.button}
           onPress={
-            () => navigation('SignUp')
+            ()=>navigation('SignUp')
           }
         >
           <Text style={styles.buttonText}>{t('registrarse')}</Text>

@@ -3,11 +3,15 @@ import React, { useState } from 'react'
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Catalog from './Catalog';
+import Cart from './Cart';
+import Offers from './Offers';
+
 
 
 const Drawer = createDrawerNavigator();
 
-export default function Home({ setLanguage, language, setModalVisible, modalVisible, navigation }) {
+export default function Home({ setLanguage, language, setModalVisible, modalVisible }) {
 
   const { t } = useTranslation();
   const [isLoad, setLoad] = useState(false);
@@ -70,11 +74,11 @@ export default function Home({ setLanguage, language, setModalVisible, modalVisi
               source={require('../img/ELEGANNZA.png')}
               style={{
                 width: 200,
-                height:25
+                height: 25
               }}
             />
           ),
-          drawerLabel:t('hm_HomeScreem'),
+          drawerLabel: t('hm_HomeScreem'),
           headerRight: () => (
             <ImageButton onPress={() => setModalVisible(true)} />
           )
@@ -83,6 +87,85 @@ export default function Home({ setLanguage, language, setModalVisible, modalVisi
         {
           () => (
             <HomeScreen />
+          )
+        }
+      </Drawer.Screen>
+      <Drawer.Screen
+        name={'Catalog'}
+        options={{
+          headerTitle: () => (
+            <Image
+              source={require('../img/ELEGANNZA.png')}
+              style={{
+                width: 200,
+                height: 25
+              }}
+            />
+          ),
+          drawerLabel: t('hm_Catalog'),
+          headerRight: () => (
+            <ImageButton onPress={() => setModalVisible(true)} />
+          )
+        }}
+      >
+        {
+          (props) => (
+            <Catalog
+              {...props} // Pasa todos los props de navegación
+              setLanguage={setLanguage}
+              language={language}
+              setModalVisible={setModalVisible}
+              modalVisible={modalVisible}
+              navigation={props.navigation.navigate}
+            />
+          )
+        }
+      </Drawer.Screen>
+      <Drawer.Screen
+        name={'Cart'}
+        options={{
+          headerTitle: () => (
+            <Image
+              source={require('../img/ELEGANNZA.png')}
+              style={{
+                width: 200,
+                height: 25
+              }}
+            />
+          ),
+          drawerLabel: t('hm_Carts'),
+          headerRight: () => (
+            <ImageButton onPress={() => setModalVisible(true)} />
+          )
+        }}
+      >
+        {
+          () => (
+            <Cart />
+          )
+        }
+      </Drawer.Screen>
+      <Drawer.Screen
+        name={'Offers'}
+        options={{
+          headerTitle: () => (
+            <Image
+              source={require('../img/ELEGANNZA.png')}
+              style={{
+                width: 200,
+                height: 25
+              }}
+            />
+          ),
+          drawerLabel: t('hm_Offers'),
+          headerRight: () => (
+            <ImageButton onPress={() => setModalVisible(true)} />
+          )
+        }}
+      >
+        {
+          () => (
+            <Offers />
           )
         }
       </Drawer.Screen>
