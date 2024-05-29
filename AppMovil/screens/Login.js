@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Button, TextInput, ActivityIndicator, Image, To
 import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
+import { dataJson } from "../funtions/fetch";
 //const funtionlog = require('../funtions/login')
 
 const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigation }) => {
@@ -19,28 +20,24 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
       />
     )
   }
-  const Log = async (user_name,password)=>{
-    try {
-      const response = await fetch(
-        'https://elegannza.onrender.com/',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_name: user_name,
-            password: password
-          }),
-        }
-      );
-      const json = await response.json();
-      console.log(json);
-      
-      //navigation('Home')
-    } catch (error) {
-      console.error(error)
-    }
+  const Log = async (user_name, password) => {
+    // try {
+    //   const body = {
+    //     user_name: user_name,
+    //     password: password
+    //   }
+    //   const result = await dataJson('POST', body)
+
+    //   if (result.success) {
+    //     console.log('Respuesta JSON:', result.data);
+    //     // navigation('Home')
+    //   } else {
+    //     Alert.alert('Error', result.error);
+    //   }
+    // } catch (error) {
+    //   console.error(error)
+    // }
+    navigation('Home')
   }
   return (
     isLoad ? (
@@ -74,7 +71,7 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
         <TouchableOpacity
           style={styles.button}
           onPress={
-            () =>Log(userName,password)
+            () => Log(userName, password)
           }
         >
           <Text style={styles.buttonText}>{t('ingresar')}</Text>
@@ -86,7 +83,7 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
         </View>
         <TouchableOpacity style={styles.button}
           onPress={
-            ()=>navigation('SignUp')
+            () => navigation('SignUp')
           }
         >
           <Text style={styles.buttonText}>{t('registrarse')}</Text>
