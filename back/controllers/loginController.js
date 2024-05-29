@@ -34,7 +34,6 @@ async function logIn(req, res) {
 			if (type_userasdasd.description == "web") {
 				expiresdTime = "1h";
 
-				console.log("asasd")
 			} else if (type_userasdasd.description == "movil") {
 				expiresdTime = "30d";
 			}

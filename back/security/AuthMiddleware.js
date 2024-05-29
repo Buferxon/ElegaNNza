@@ -11,7 +11,7 @@ const cookieJwtAuthSpecific = (expectedAppType) => {
 				return res.status(401).json({ error: "Not logged in" });
 			}
 
-			jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
+			jwt.verify(token, process.env.SECRET_TOKEN, async (err, decoded) => {
 				if (err) {
 					return res.status(403).json({ error: "Token no válido" });
 				}
@@ -20,6 +20,14 @@ const cookieJwtAuthSpecific = (expectedAppType) => {
 					return res
 						.status(403)
 						.json({ error: "Acceso denegado para este tipo de aplicación" });
+				}
+
+				// Check if the token is close to expiration and generate a new one if necessary
+				const newToken = await generateNewToken(token);
+				if (newToken !== token) {
+					res.setHeader("Authorization", newToken);
+				} else {
+					res.setHeader("Authorization", token);
 				}
 
 				req.user = decoded;
@@ -39,9 +47,15 @@ const cookieJwtAuthGeneral = async (req, res, next) => {
 			return res.status(401).json({ error: "Not logged in" });
 		}
 
-		jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
+		jwt.verify(token, process.env.SECRET_TOKEN, async (err, decoded) => {
 			if (err) {
 				return res.status(403).json({ error: "Token no válido" });
+			}
+
+			// Check if the token is close to expiration and generate a new one if necessary
+			const newToken = await generateNewToken(token);
+			if (newToken !== token) {
+				res.setHeader("Authorization", newToken);
 			}
 
 			req.user = decoded;
