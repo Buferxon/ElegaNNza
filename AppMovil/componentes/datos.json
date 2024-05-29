@@ -1,0 +1,70 @@
+[
+    {
+        "id":1,
+        "name":"prueba 1",
+        "precio":10000,
+        "caracteristicas":
+        [
+            {
+                "talla":"M",
+                "cantidad":10
+            },
+            {
+                "talla":"L",
+                "cantidad":5
+            }
+        ],
+        "img":"../img/1.png"
+    },
+    {
+        "id":2,
+        "name":"prueba 4",
+        "precio":10000,
+        "caracteristicas":
+        [
+            {
+                "talla":"M",
+                "cantidad":10
+            },
+            {
+                "talla":"L",
+                "cantidad":5
+            }
+        ],
+        "img":"../img/2.png"
+    },
+    {
+        "id":3,
+        "name":"prueba 3",
+        "precio":10000,
+        "caracteristicas":
+        [
+            {
+                "talla":"M",
+                "cantidad":10
+            },
+            {
+                "talla":"L",
+                "cantidad":5
+            }
+        ],
+        "img":"../img/1.png"
+    },
+    {
+        "id":4,
+        "name":"prueba 2",
+        "precio":10000,
+        "caracteristicas":
+        [
+            {
+                "talla":"M",
+                "cantidad":10
+            },
+            {
+                "talla":"L",
+                "cantidad":5
+            }
+        ],
+        "img":"../img/2.png"
+    }
+]
