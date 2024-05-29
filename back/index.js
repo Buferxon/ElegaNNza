@@ -3,9 +3,9 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const routerLogin= require("./routes/routerLogin");
-const routerUser= require("./routes/routerUser");
-
+const routerLogin = require("./routes/routerLogin");
+const routerUser = require("./routes/routerUser");
+const routerProduct = require("./routes/routerProduct");
 
 // Crear una instancia de la aplicación Express
 const app = express();
@@ -14,9 +14,6 @@ app.use(express.json());
 
 app.use(cors());
 
-
-
-
 app.get("/", (req, res) => {
 	res.setHeader("Content-type", "text/html");
 	res.send(
@@ -24,19 +21,14 @@ app.get("/", (req, res) => {
 	);
 });
 
+app.use("/login", routerLogin);
 
+app.use("/user", routerUser);
 
-
-
-app.use("/login",routerLogin)
-
-app.use("/user",routerUser)
+app.use("/product", routerProduct);
 
 // Puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
-
-
-
 
 app.use(function (req, res, next) {
 	next(createError(404));
@@ -50,5 +42,5 @@ app.use(function (err, req, res, next) {
 // Iniciar el servidor
 
 app.listen(PORT, () => {
-  console.log(`Servidor iniciado en el puerto ${PORT}`);
+	console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
