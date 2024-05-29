@@ -10,7 +10,7 @@ const userSchema = Joi.object({
 	password: Joi.string().required(),
 	user_type: Joi.number().required(),
 	status: Joi.number().required(),
-	registration_date: Joi.date().required(),
+	registration_date: Joi.date().optional(),
 	identification_type: Joi.string().required(),
 	identification_number: Joi.number().required(),
 	phone: Joi.number().required(),
@@ -92,8 +92,6 @@ async function getUserInfo(req, res) {
 	try {
 		const collectionUser = await conexionDB.collection("user");
 
-		// console.log(req.user);
-
 		user_name = req.user.user_name;
 		const result = await collectionUser.findOne({
 			user_name: user_name,
@@ -129,6 +127,10 @@ async function insertUsers(req, res) {
 
 				if (validation.error) {
 					throw validation.error;
+				}
+
+				if (!user.registration_date) {
+					user.registration_date = new Date();
 				}
 
 				const existingUser = await collectionUser.findOne({

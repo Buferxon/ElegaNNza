@@ -1,5 +1,4 @@
 const conexionDB = require("../security/conexion");
-const CryptoJS = require("crypto-js");
 const Joi = require("joi");
 require("dotenv").config();
 
@@ -14,23 +13,15 @@ const productSchema = Joi.object({
 	price: Joi.string().required(),
 	detail: Joi.string().required(),
 	status: Joi.number().required(),
-	type_product: Joi.string().required(),
+	type_product: Joi.number().required(),
 	registration_date: Joi.date().required(),
 	stock: stockSchema.required(), // Agregando el esquema de stock como requerido
 });
 
 async function getProducts(req, res) {
 	try {
-		const {
-			code,
-			name,
-			price,
-			detail,
-			status,
-			type_product,
-            stock
-			
-		} = req.query;
+		const { code, name, price, detail, status, type_product, stock } =
+			req.query;
 
 		let query = {};
 
@@ -49,12 +40,12 @@ async function getProducts(req, res) {
 		if (status !== undefined) {
 			query.status = parseInt(status);
 		}
-		
+
 		if (stock !== undefined) {
 			query.stock = stock;
 		}
 		if (type_product !== undefined) {
-			query.type_product = type_product;
+			query.type_product = parseInt(type_product);
 		}
 
 		const collectionProduct = await conexionDB.collection("products");
@@ -145,7 +136,7 @@ async function insertProduct(req, res) {
 				details: error.details.map((e) => e.message),
 			});
 		} else {
-			console.log("asdasd",error);
+			console.log("asdasd", error);
 		}
 
 		res.status(500).json({
@@ -186,16 +177,7 @@ async function updateUser(req, res) {
 		}
 
 		// Hashear la nueva contraseña si ha cambiado
-		if (userUpdates.password) {
-			userUpdates.password_hash = CryptoJS.SHA256(
-				userUpdates.password,
-				process.env.CODE_SECRET_DATA
-			).toString();
-			delete userUpdates.password; // Eliminar la contraseña en texto plano de las actualizaciones
-		} else {
-			delete userUpdates.password_hash; // Asegurarse de que no se sobrescribe el hash de la contraseña existente
-		}
-
+		
 		// Actualizar el usuario en la base de datos
 		const updateResult = await collectionUser.updateOne(
 			{ user_name: user_name },

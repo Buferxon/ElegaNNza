@@ -6,6 +6,7 @@ require("dotenv").config();
 const routerLogin = require("./routes/routerLogin");
 const routerUser = require("./routes/routerUser");
 const routerProduct = require("./routes/routerProduct");
+const routerItem = require("./routes/routerItem");
 
 // Crear una instancia de la aplicación Express
 const app = express();
@@ -26,6 +27,9 @@ app.use("/login", routerLogin);
 app.use("/user", routerUser);
 
 app.use("/product", routerProduct);
+
+
+app.use("/item", routerItem);
 
 // Puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;

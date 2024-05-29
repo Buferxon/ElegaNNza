@@ -14,4 +14,3 @@ routerLogin.post("/", loginControllers.logIn);
 
 module.exports = routerLogin;
 
-module.exports = routerLogin;
