@@ -28,7 +28,7 @@ function Admins() {
   const handleEdit = (e, username) =>
     {
       e.preventDefault();
-      router.push(`./editar?username=${username}`);
+      router.push(`./EditClient?username=${username}`);
 
     }
 
