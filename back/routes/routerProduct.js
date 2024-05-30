@@ -14,6 +14,12 @@ routerProduct.post(
 	productController.insertProduct
 );
 
-routerProduct.get("/", cookieJwtAuthGeneral, productController.getProducts);
+routerProduct.get("/", productController.getProducts);
+
+routerProduct.put(
+	"/updateProduct",
+	cookieJwtAuthSpecific("web"),
+	productController.updateProduct
+);
 
 module.exports = routerProduct;

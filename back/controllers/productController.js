@@ -1,6 +1,9 @@
+const { parse } = require("dotenv");
 const conexionDB = require("../security/conexion");
 const Joi = require("joi");
-require("dotenv").config();
+const { connect, disconnect } = require("../security/sftpClient");
+const fs = require("fs").promises;
+const path = require("path");
 
 const stockSchema = Joi.object().pattern(
 	Joi.string(), // Clave de cada par talla-cantidad (e.g., 'x', 's')
@@ -10,12 +13,23 @@ const stockSchema = Joi.object().pattern(
 const productSchema = Joi.object({
 	name: Joi.string().required(),
 	code: Joi.string().required(),
-	price: Joi.string().required(),
+	price: Joi.number().required(),
 	detail: Joi.string().required(),
 	status: Joi.number().required(),
 	type_product: Joi.number().required(),
-	registration_date: Joi.date().required(),
-	stock: stockSchema.required(), // Agregando el esquema de stock como requerido
+	registration_date: Joi.date().optional(),
+	stock: stockSchema.required(),
+	image:Joi.string.optional(),
+});
+
+const productSchemaUpdate = Joi.object({
+	name: Joi.string().optional(),
+	price: Joi.number().optional(),
+	detail: Joi.string().optional(),
+	status: Joi.number().optional(),
+	type_product: Joi.number().optional(),
+	registration_date: Joi.date().optional(),
+	stock: stockSchema.optional(), // Agregando el esquema de stock como requerido
 });
 
 async function getProducts(req, res) {
@@ -29,7 +43,7 @@ async function getProducts(req, res) {
 			query.name = name;
 		}
 		if (code !== undefined) {
-			query.code = parseInt(code);
+			query.code = code;
 		}
 		if (price !== undefined) {
 			query.price = parseInt(price);
@@ -60,28 +74,6 @@ async function getProducts(req, res) {
 		});
 	}
 }
-
-async function getUserInfo(req, res) {
-	try {
-		const collectionUser = await conexionDB.collection("user");
-
-		// console.log(req.user);
-
-		user_name = req.user.user_name;
-		const result = await collectionUser.findOne({
-			user_name: user_name,
-		});
-
-		res.status(200).json(result);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({
-			error: "Internal Server Error",
-		});
-	}
-}
-
-//* Trae un usuarip
 
 //* inserta varios usuarios
 async function insertProduct(req, res) {
@@ -114,6 +106,9 @@ async function insertProduct(req, res) {
 					throw new Error(`Este producto ya existe '${product.code}'`);
 				}
 
+				if (!product.registration_date) {
+					product.registration_date = new Date();
+				}
 				// Hashear la contraseña y eliminar el campo password
 
 				return product;
@@ -128,8 +123,6 @@ async function insertProduct(req, res) {
 			insertedCount: validProducts.length,
 		});
 	} catch (error) {
-		// console.log("Error insertando usuarios:", error);
-
 		if (error.isJoi) {
 			return res.status(400).json({
 				error: "Error en la validación de datos",
@@ -145,20 +138,18 @@ async function insertProduct(req, res) {
 	}
 }
 
-//* actualiza un usuario
-async function updateUser(req, res) {
+//* actualiza un producto
+async function updateProduct(req, res) {
 	try {
-		const { user_name } = req.query; // Extraer user_name de los query parameters
-		const userUpdates = req.body;
+		const { code } = req.query; // Extraer user_name de los query parameters
+		const productUpdate = req.body;
 
-		if (!user_name) {
-			return res
-				.status(400)
-				.json({ error: "El nombre de usuario es requerido" });
+		if (!code) {
+			return res.status(400).json({ error: "El codigo es requerido." });
 		}
 
 		// Validar la entrada del usuario
-		const validation = userSchemaUpdate.validate(userUpdates, {
+		const validation = productSchemaUpdate.validate(productUpdate, {
 			abortEarly: false,
 		});
 		if (validation.error) {
@@ -168,34 +159,41 @@ async function updateUser(req, res) {
 			});
 		}
 
-		const collectionUser = await conexionDB.collection("user");
+		const collectionProduct = await conexionDB.collection("products");
 
-		// Verificar si el usuario existe
-		const existingUser = await collectionUser.findOne({ user_name: user_name });
+		// Verificar si el producto existe
+		const existingUser = await collectionProduct.findOne({
+			code: code,
+		});
+
 		if (!existingUser) {
-			return res.status(404).json({ error: "Usuario no encontrado" });
+			return res.status(404).json({ error: "Producto no encontrado" });
 		}
 
 		// Hashear la nueva contraseña si ha cambiado
-		
+
 		// Actualizar el usuario en la base de datos
-		const updateResult = await collectionUser.updateOne(
-			{ user_name: user_name },
-			{ $set: userUpdates }
+		const updateResult = await collectionProduct.updateOne(
+			{ code: code },
+			{ $set: productUpdate }
 		);
 
 		if (updateResult.modifiedCount === 0) {
-			return res.status(500).json({ error: "Error actualizando el usuario" });
+			return res.status(500).json({ error: "Error actualizando el producto" });
 		}
 
-		res.status(200).json({ message: "Usuario actualizado exitosamente" });
+		res.status(200).json({ message: "Producto actualizado exitosamente" });
 	} catch (error) {
-		// console.log("Error actualizando usuario:", error);
+		console.log("Error actualizando usuario:", error);
 		res.status(500).json({ error: "Error interno del servidor" });
 	}
 }
 
+
+
 module.exports = {
 	getProducts,
 	insertProduct,
+	updateProduct,
+	
 };

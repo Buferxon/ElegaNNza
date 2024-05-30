@@ -18,13 +18,7 @@ routerUser.post(
 	userController.insertUsers
 );
 
-routerUser.post(
-	"/registerMovil",
-	setDefaultUserType,
-	userController.insertUsers
-);
-
-
+routerUser.post("/registerMovil", userController.insertUsers);
 
 routerUser.put(
 	"/updateUser",
