@@ -7,6 +7,7 @@ const productSchema = Joi.object({
 	code: Joi.string().required(),
 	name: Joi.string().required(),
 	price: Joi.number().required(),
+	size: Joi.string().required(),
 	amounth: Joi.number().required(), // Parece que debería ser "amount"
 	subtotal: Joi.number().required(),
 });
