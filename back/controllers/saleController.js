@@ -1,5 +1,6 @@
 const conexionDB = require("../security/conexion");
 const Joi = require("joi");
+const { sendSaleEmail } = require("../config/mailer");
 
 // Definir el esquema para los productos
 const productSchema = Joi.object({
@@ -21,6 +22,14 @@ const saleSchema = Joi.object({
 	registration_date: Joi.date().optional(), // Fecha de registro opcional
 });
 
+function generateSaleCode() {
+	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	let code = "";
+	for (let i = 0; i < 11; i++) {
+		code += characters.charAt(Math.floor(Math.random() * characters.length));
+	}
+	return code;
+}
 //* Insertar ventas
 
 async function createSale(req, res) {
@@ -34,12 +43,10 @@ async function createSale(req, res) {
 
 		const collectionSales = await conexionDB.collection("sales");
 
-		// Validar cada usuario y hashear la contraseña
+		// Validar cada venta, generar código y establecer la fecha de registro si no está presente
 		const validSales = await Promise.all(
 			sales.map(async (sale) => {
-				const validation = saleSchema.validate(sale, {
-					abortEarly: false,
-				});
+				const validation = saleSchema.validate(sale, { abortEarly: false });
 
 				if (validation.error) {
 					throw validation.error;
@@ -48,14 +55,27 @@ async function createSale(req, res) {
 				if (!sale.registration_date) {
 					sale.registration_date = new Date();
 				}
-				// Hashear la contraseña y eliminar el campo password
 
+				// Generar y asignar un código único
+				sale.code = generateSaleCode();
+
+				const existingSale = await collectionSales.findOne({
+					$or: [{ code: sale.code }],
+				});
+
+				if (existingSale) {
+					sale.code = generateSaleCode();
+				}
 				return sale;
 			})
 		);
 
-		console.log(validSales);
 		await collectionSales.insertMany(validSales);
+
+		// Enviar correo electrónico con los detalles de cada venta
+		for (const sale of validSales) {
+			await sendSaleEmail(sale);
+		}
 
 		res.status(200).json({
 			message: "Venta realizada exitosamente",
@@ -68,7 +88,7 @@ async function createSale(req, res) {
 				details: error.details.map((e) => e.message),
 			});
 		} else {
-			console.log("asdasd", error);
+			console.log("Error insertando venta:", error);
 		}
 
 		res.status(500).json({
