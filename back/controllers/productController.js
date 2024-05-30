@@ -1,9 +1,5 @@
-const { parse } = require("dotenv");
 const conexionDB = require("../security/conexion");
 const Joi = require("joi");
-const { connect, disconnect } = require("../security/sftpClient");
-const fs = require("fs").promises;
-const path = require("path");
 
 const stockSchema = Joi.object().pattern(
 	Joi.string(), // Clave de cada par talla-cantidad (e.g., 'x', 's')
@@ -19,7 +15,7 @@ const productSchema = Joi.object({
 	type_product: Joi.number().required(),
 	registration_date: Joi.date().optional(),
 	stock: stockSchema.required(),
-	image:Joi.string().optional(),
+	image: Joi.string().optional(),
 });
 
 const productSchemaUpdate = Joi.object({
@@ -75,7 +71,7 @@ async function getProducts(req, res) {
 	}
 }
 
-//* inserta varios usuarios
+//* inserta varios productos
 async function insertProduct(req, res) {
 	try {
 		const products = req.body;
@@ -189,11 +185,8 @@ async function updateProduct(req, res) {
 	}
 }
 
-
-
 module.exports = {
 	getProducts,
 	insertProduct,
 	updateProduct,
-	
 };

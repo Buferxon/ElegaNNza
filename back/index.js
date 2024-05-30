@@ -7,6 +7,7 @@ const routerLogin = require("./routes/routerLogin");
 const routerUser = require("./routes/routerUser");
 const routerProduct = require("./routes/routerProduct");
 const routerItem = require("./routes/routerItem");
+const routerSale = require("./routes/routerSale");
 
 // Crear una instancia de la aplicación Express
 const app = express();
@@ -30,6 +31,9 @@ app.use("/product", routerProduct);
 
 
 app.use("/item", routerItem);
+
+
+app.use("/sales", routerSale);
 
 // Puerto en el que se ejecutará el servidor
 const PORT = process.env.PORT || 3000;
