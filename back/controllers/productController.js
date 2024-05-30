@@ -24,8 +24,8 @@ const productSchemaUpdate = Joi.object({
 	detail: Joi.string().optional(),
 	status: Joi.number().optional(),
 	type_product: Joi.number().optional(),
-	registration_date: Joi.date().optional(),
 	stock: stockSchema.optional(), // Agregando el esquema de stock como requerido
+	image: Joi.string().optional(),
 });
 
 async function getProducts(req, res) {
