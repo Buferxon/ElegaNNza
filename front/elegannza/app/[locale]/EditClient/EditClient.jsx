@@ -143,30 +143,30 @@ function EditClient() {
 
                     <div className='FirstHalf'>
 
-                    <label htmlFor='ClientName'>Nombre:</label>
+                    <label htmlFor='ClientName'>{t("EditClientName")}:</label>
                     <input onChange={(e)=>{handleName(e.target.value)}} className='FormClientInputs' id='ClientName' type='text' value={ClientName}></input>
-                    <label htmlFor='ClientLastName'>Apellido:</label>
+                    <label htmlFor='ClientLastName'>{t("EditClientLastName")}:</label>
                     <input onChange={(e)=>{handleLastName(e.target.value)}} className='FormClientInputs' id='ClientLastName' type='text' value={ClientLastName}></input>
-                    <label htmlFor='ClientUserName'>Nombre de usuario:</label>
+                    <label htmlFor='ClientUserName'>{t("EditClientUserName")}:</label>
                     <input onChange={(e)=>{handleUserName(e.target.value)}} className='FormClientInputs' id='ClientUserName' type='text' value={ClientuserName}></input>      
-                    <label htmlFor='ClientIdentificationType'>Tipo de identificación:</label>
+                    <label htmlFor='ClientIdentificationType'>{t("EditClientIdentType")}:</label>
                     <input onChange={(e)=>{handleIdentificationType(e.target.value)}} className='FormClientInputs' id='ClientIdentificationType' type='text' value={ClientIdentificationType}></input>
-                    <label htmlFor='ClientIdentificationNro'># de identificación:</label>
+                    <label htmlFor='ClientIdentificationNro'>{t("EditClientIdentNro")}:</label>
                     <input onChange={(e)=>{handleIdentificationNro(e.target.value)}} className='FormClientInputs' id='ClientIdentificationNro' type='number' value={ClientIdentificationNro}></input>
-                    <label htmlFor='ClientAddress'>Dirección:</label>
+                    <label htmlFor='ClientAddress'>{t("EditClientAddress")}:</label>
                     <input onChange={(e)=>{handleAddress(e.target.value)}} className='FormClientInputs' id='ClientAddress' type='text' value={ClientAddress}></input>
-                    <label htmlFor='ClientPhone'>Teléfono:</label>
+                    <label htmlFor='ClientPhone'>{t("EditClientPhone")}:</label>
                     <input onChange={(e)=>{handlePhone(e.target.value)}} className='FormClientInputs' id='ClientPhone' type='number' value={ClientPhone}></input>
-                    <label htmlFor='ClientStatus'>Estado:</label>
+                    <label htmlFor='ClientStatus'>{t("EditClientStatus")}:</label>
                     <select id='ClientStatus' onChange  ={(e)=>{handleItemStatus(e.target.value)}} className='FormDataInputs' value={ClientStatus} >
-                            <option value={null}>Seleccione un estado</option>
-                            <option value={1}>Disponible</option>
-                            <option value={0}>No Disponible</option>
+                            <option value={null}>{t("EditClientChooseStatus")}</option>
+                            <option value={1}>{t("EditClientAvailable")}</option>
+                            <option value={0}>{t("EditClientUnavailable")}</option>
                     </select>
                     
                     </div>
 
-                    <button className='UploadBtn' type='submit'>Guardar cambios</button>
+                    <button className='UploadBtn' type='submit'>{t("EditClientSaveChanges")}</button>
 
                     </form>
                 </div>

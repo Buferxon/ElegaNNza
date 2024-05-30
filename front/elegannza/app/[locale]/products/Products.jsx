@@ -39,10 +39,10 @@ function Products() {
         getProducts();
       }, [])
 
-    const handleEditProduct = (e) =>
+    const handleEditProduct = (e,code) =>
         {
             e.preventDefault();
-            router.push("EditProduct");
+            router.push(`EditProduct?code=${code}`);
         }
 
   return (
@@ -61,7 +61,7 @@ function Products() {
 
                 <div className='AddContainer'>
                     <button type='button' className='AddBtn' onClick={(e)=>handleAdd(e)}>
-                    <i class="bi bi-plus-circle-fill"></i> Añadir producto
+                    <i className="bi bi-plus-circle-fill"></i> Añadir producto
                     </button>
                 </div>
 
@@ -85,11 +85,8 @@ function Products() {
                                 </div>
 
                                 <div className='ProductActions'>
-                                    <button className='ActionBtn' onClick={(e) => {handleEditProduct(e)}} type='button'>
+                                    <button className='ActionBtn' onClick={(e) => {handleEditProduct(e, product.code)}} type='button'>
                                         <i className="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button className='ActionBtn' type='button'>
-                                        <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </div>
                             </div>

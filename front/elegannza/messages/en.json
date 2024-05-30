@@ -15,5 +15,33 @@
     "productsTitle": "PRODUCTS",
     "adminsTitle":"MANAGEMENT",
     "AddProductTitle":"ADD ITEM",
-    "EditclientsTitle":"EDIT COSTUMERS"
+    "EditclientsTitle":"EDIT COSTUMERS",
+    "EditProductTitle":"EDIT ITEM",
+    "EditClientName": "Name",
+    "EditClientLastName": "Last name",
+    "EditClientUserName":"Username",
+    "EditClientIdentType":"Identification type",
+    "EditClientIdentNro": "Identification number",
+    "EditClientAddress":"Address",
+    "EditClientPhone":"Phone",
+    "EditClientStatus":"Status",
+    "EditClientChooseStatus":"Choose Status",
+    "EditClientAvailable":"Available",
+    "EditClientUnavailable":"Unavailable",
+    "EditClientSaveChanges":"Save changes",
+
+    "EditProductSaveChanges":"Save changes",
+    "EditProductCode":"Code",
+    "EditProductName":"Name",
+    "EditProductDetail":"Description",
+    "EditProductUrl":"Url",
+    "EditProductPrice":"Price",
+    "EditProductStatus":"Status",
+    "EditProductType":"Product type",
+
+    "SellingsTitle":"SALES",
+    "cost":"Cost",
+    "SaleDate":"Date"
+    
+
 }

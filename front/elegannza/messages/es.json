@@ -15,6 +15,31 @@
     "productsTitle": "PRODUCTOS",
     "adminsTitle":"ADMINISTRACIÓN",
     "AddProductTitle":"AÑADIR PRODUCTO",
-    "EditclientsTitle":"EDITAR CLIENTES"
-    
+    "EditclientsTitle":"EDITAR CLIENTES",
+    "EditProductTitle":"EDITAR PRODUCTO",
+    "EditClientName": "Nombre",
+    "EditClientLastName": "Apellido",
+    "EditClientUserName":"Nombre de usuario",
+    "EditClientIdentType":"Tipo de identificación" ,
+    "EditClientIdentNro": "Número de identificación",
+    "EditClientAddress":"Dirección",
+    "EditClientPhone":"Teléfono",
+    "EditClientStatus":"Estado",
+    "EditClientChooseStatus":"Seleccione un estado",
+    "EditClientAvailable":"Disponible",
+    "EditClientUnavailable":"No disponible",
+    "EditClientSaveChanges":"Guardar cambios",
+
+    "EditProductSaveChanges":"Guardar cambios",
+    "EditProductCode":"Código",
+    "EditProductName":"Nombre",
+    "EditProductDetail":"Descripción",
+    "EditProductUrl":"Url",
+    "EditProductPrice":"Precio",
+    "EditProductStatus":"Estado",
+    "EditProductType":"Tipo de producto",
+
+    "SellingsTitle":"VENTAS",
+    "cost":"Costo",
+    "SaleDate":"Fecha de compra"
 }
