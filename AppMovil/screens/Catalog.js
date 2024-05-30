@@ -1,12 +1,14 @@
 import {
   StyleSheet, Text, View, ActivityIndicator, Image, TouchableOpacity, Button, FlatList,
-  SafeAreaView
+  SafeAreaView, Alert
 } from 'react-native'
 import React, { useState } from 'react'
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
 import Datos from "../componentes/datos.json";
 import RNPickerSelect from 'react-native-picker-select';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 
 
 const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
@@ -15,11 +17,48 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
   const [selectId, setSelectId] = useState();
   const [modalDetalle, setModalDetalle] = useState(false)
   const [formData, setFormData] = useState({
-    name: '',
-    precio: '',
     talla: '',
     cantidad: ''
   });
+  //const [pr_name, setPr_name] = useState('');
+
+  const [products, setProducts] = useState([])
+
+  const [isLoad, setLoad] = useState(true);
+
+  const getProducts = async () => {
+    try {
+      const response = await fetch('https://elegannza.onrender.com/product')
+      if (response) {
+        const json = await response.json();
+        //console.log(json)
+        setProducts(json);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getProducts();
+      setLoad(false);
+    };
+    fetchData();
+  }, [])
+
+
+  const storeData = async (value) => {
+    try {
+      const existingData = await AsyncStorage.getItem('cart');
+      const cart = existingData ? JSON.parse(existingData) : [];
+      cart.push(value);
+      const jsonValue = JSON.stringify(cart);
+      await AsyncStorage.setItem('cart', jsonValue);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   const Items = ({ item, onPress }) => (
     <TouchableOpacity
@@ -28,11 +67,11 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
       <View style={styles.contenido}>
         <Image
           style={{
-            width: 300,
-            height: 300,
+            width: 280,
+            height: 280,
             borderRadius: 10
           }}
-          source={require('../img/1.png')}
+          source={{ uri: item.image }}
         />
         <Text
           style={styles.text}
@@ -49,14 +88,14 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
         item={item}
         onPress={() => {
           setModalDetalle(true);
-          setSelectId(item.id);
+          setSelectId(item._id);
         }}
       />
     );
   }
 
   const itemModal = () => {
-    const itemSe = Datos.find(item => item.id === selectId)
+    const itemSe =  products.find(item => item._id === selectId)
     if (itemSe) {
       return (
         <View>
@@ -66,7 +105,7 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
               height: 300,
               borderRadius: 10
             }}
-            source={require('../img/1.png')}
+            source={{ uri: itemSe.image }}
           />
           <Text
             style={styles.textModal}
@@ -76,7 +115,7 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
           <Text
             style={styles.textModal}
           >
-            Precio: ${itemSe.precio}
+            Precio: ${itemSe.price}
           </Text>
           <RNPickerSelect
             style={{
@@ -84,10 +123,11 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
             }}
             onValueChange={(value) => handleInputChange('talla', value)}
             items={[
-              { label: 'S', value: 'S' },
-              { label: 'M', value: 'M' },
-              { label: 'L', value: 'L' },
-              { label: 'XL', value: 'XL' },
+              { label: 'xs', value: 'xs' },
+              { label: 's', value: 's' },
+              { label: 'm', value: 'm' },
+              { label: 'l', value: 'l' },
+              { label: 'xl', value: 'xl' },
             ]}
             placeholder={{ label: 'Talla', value: '' }}
           />
@@ -104,7 +144,7 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
             placeholder={{ label: 'Cantidad', value: '' }}
           />
           <TouchableOpacity style={styles.button}
-            onPress={()=>addCar(itemSe.name,itemSe.precio)}
+            onPress={() =>  addCar(itemSe.name, itemSe.price, itemSe.code, itemSe.image)}
           >
             <Text style={styles.buttonText}>Agregar al carrito</Text>
           </TouchableOpacity>
@@ -113,45 +153,58 @@ const Catalog = ({ setLanguage, language, setModalVisible, modalVisible }) => {
     }
     return null;
   }
-  const handleInputChange = (key, value) => {
+  const handleInputChange = async (key, value) => {
     setFormData(prevState => ({
       ...prevState,
       [key]: value
     }));
   };
+
+
+  const addCar = async (name, precio, codigo, img) => {
+    
+    if (!name || !precio || !codigo || !img || !formData.talla || !formData.cantidad) {
+      return Alert.alert('Error', 'Por favor complete todos los campos.');
+    }
   
-
-  const addCar = (name,precio)=>{
-    if(name){
-      handleInputChange('name',name)
-    }
-    if(precio){
-      handleInputChange('precio',precio)
-    }
-
+    const itemToStore = {
+      code: codigo,
+      name: name,
+      precio: precio,
+      talla: formData.talla,
+      cantidad: formData.cantidad,
+      img: img
+    };
+  
+    await storeData(itemToStore);
     setModalDetalle(false);
-
-    return console.log(formData);
   }
 
   return (
-    <View
-      style={styles.container}
-    >
-      <Modal isVisible={modalDetalle} onBackdropPress={() => setModalDetalle(false)}>
-        <View style={{ backgroundColor: '#1A1A40', padding: 22 }}>
-          {itemModal()}
-        </View>
-      </Modal>
-      <FlatList
-        style={styles.lista}
-        data={Datos}
-        keyExtractor={item => item.id}
-        renderItem={renderItem}
-        extraData={selectId}
-      />
+    isLoad ? (
+      <View style={styles.activity}>
+        <ActivityIndicator size="large" color="#00ff00" />
+      </View>
+    ) : (
+      <View
+        style={styles.container}
+      >
+        <Modal isVisible={modalDetalle} onBackdropPress={() => setModalDetalle(false)}>
+          <View style={{ backgroundColor: '#1A1A40', padding: 22 }}>
+            {itemModal()}
+          </View>
+        </Modal>
+        <FlatList
+          style={styles.lista}
+          data={products}
+          keyExtractor={item => item._id}
+          renderItem={renderItem}
+          extraData={selectId}
+        />
 
-    </View>
+      </View>
+    )
+
   )
 }
 
@@ -207,6 +260,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 16,
+  },
+  activity: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    backgroundColor: '#1A1A40'
   },
 })
 

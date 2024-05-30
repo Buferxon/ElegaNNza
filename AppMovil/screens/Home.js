@@ -105,7 +105,8 @@ export default function Home({ setLanguage, language, setModalVisible, modalVisi
           drawerLabel: t('hm_Catalog'),
           headerRight: () => (
             <ImageButton onPress={() => setModalVisible(true)} />
-          )
+          ),
+          unmountOnBlur: true
         }}
       >
         {
@@ -136,7 +137,8 @@ export default function Home({ setLanguage, language, setModalVisible, modalVisi
           drawerLabel: t('hm_Carts'),
           headerRight: () => (
             <ImageButton onPress={() => setModalVisible(true)} />
-          )
+          ),
+          unmountOnBlur: true
         }}
       >
         {
@@ -160,7 +162,8 @@ export default function Home({ setLanguage, language, setModalVisible, modalVisi
           drawerLabel: t('hm_Offers'),
           headerRight: () => (
             <ImageButton onPress={() => setModalVisible(true)} />
-          )
+          ),
+          unmountOnBlur: true
         }}
       >
         {

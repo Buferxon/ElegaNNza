@@ -80,9 +80,34 @@ const registUser = async ()=>{
     Alert.alert('Error', t('rg_errPassVNo'));
     return;
   }
-  await FuntionReg.registerUser(formData);
-  clearFormData();
-  navigation('Login');
+  //await FuntionReg.registerUser(formData);
+  const response = await fetch('https://elegannza.onrender.com/user/registerMovil', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify([{
+      name:formData.name,
+      last_name:formData.lastName,
+      user_name:formData.email,
+      password:formData.password,
+      user_type:0,
+      status:1,
+      identification_type:formData.tDocument,
+      identification_number:formData.identification,
+      phone:formData.phone,
+      address:formData.adress
+    }]),
+  });
+  if (!response.ok) {
+    Alert.alert('Error','hubo un error')
+  } else {
+    const json = await response.json();
+    console.log(json);
+    clearFormData();
+    navigation('Login'); 
+  }
   //console.log('Registro exitoso');
 }
 const clearFormData = () => {

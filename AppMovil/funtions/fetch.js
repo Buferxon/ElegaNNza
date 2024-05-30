@@ -1,32 +1,13 @@
-const url_base = 'https://elegannza.onrender.com/login';
-
-async function dataJson(method, body) {
+//const url_base = 'https://elegannza.onrender.com';
+const url_base = 'http:/localhost:8080';
+async function dataJson(url,method, body) {
     try {
-        const response = await fetch(url_base, {
+        const ruta = url_base + url;
+        const response = await fetch(ruta, {
             method: method,
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(body),
         });
-
-        const statusCode = response.status;
-        const text = await response.text();
-
-        if (statusCode >= 200 && statusCode < 300) {
-            try {
-                const json = JSON.parse(text);
-                return { success: true, data: json };
-            } catch (jsonError) {
-                console.error('Error al analizar JSON:', jsonError);
-                console.error('Respuesta recibida:', text);
-                return { success: false, error: 'Invalid JSON response' };
-            }
-        } else {
-            console.error(`Error en la solicitud: ${statusCode}`);
-            console.error('Respuesta recibida:', text);
-            return { success: false, error: text };
-        }
+        console.log(ruta);
     } catch (error) {
         console.error('Error en la solicitud:', error);
         return { success: false, error: error.message };

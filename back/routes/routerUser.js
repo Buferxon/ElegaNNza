@@ -8,7 +8,7 @@ const {
 
 const userController = require("../controllers/userController");
 
-routerUser.get("/", cookieJwtAuthSpecific("web"), userController.getUsers);
+routerUser.get("/", userController.getUsers);
 
 routerUser.get("/info", cookieJwtAuthGeneral, userController.getUserInfo);
 

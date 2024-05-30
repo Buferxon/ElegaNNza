@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import { useTranslation } from 'react-i18next';
 import { dataJson } from "../funtions/fetch";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //const funtionlog = require('../funtions/login')
 
 const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigation }) => {
@@ -11,6 +12,16 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
   const [isLoad, setLoad] = useState(false);
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState()
+
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('user', jsonValue);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   function Logo() {
     return (
@@ -21,24 +32,32 @@ const Login = ({ setLanguage, language, setModalVisible, modalVisible, navigatio
     )
   }
   const Log = async (user_name, password) => {
-    // try {
-    //   const body = {
-    //     user_name: user_name,
-    //     password: password
-    //   }
-    //   const result = await dataJson('POST', body)
+    try {
+      const response = await fetch('https://elegannza.onrender.com/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_name: user_name,
+          password: password,
+        }),
+      });
 
-    //   if (result.success) {
-    //     console.log('Respuesta JSON:', result.data);
-    //     // navigation('Home')
-    //   } else {
-    //     Alert.alert('Error', result.error);
-    //   }
-    // } catch (error) {
-    //   console.error(error)
-    // }
-    navigation('Home')
+      if (!response.ok) {
+        Alert.alert('Error','Contraseña o usuario incorrecto')
+      } else {
+        const json = await response.json();
+        console.log(json);
+        await storeData(json);
+        navigation('Home')
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
+
   return (
     isLoad ? (
       <View style={styles.activity}>
