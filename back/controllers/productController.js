@@ -19,7 +19,7 @@ const productSchema = Joi.object({
 	type_product: Joi.number().required(),
 	registration_date: Joi.date().optional(),
 	stock: stockSchema.required(),
-	image:Joi.string.optional(),
+	image:Joi.string().optional(),
 });
 
 const productSchemaUpdate = Joi.object({
