@@ -6,6 +6,15 @@
     "clients":"Clientes",
     "products":"Productos",
     "sellings": "Ventas",
-    "admin": "Administración"
+    "admin": "Administración",
+    "clientsTitle": "CLIENTES",
+    "nameLN": "Nombre y apellido",
+    "user_name": "Correo",
+    "identification":"Identificacion",
+    "actions":"Acciones",
+    "productsTitle": "PRODUCTOS",
+    "adminsTitle":"ADMINISTRACIÓN",
+    "AddProductTitle":"AÑADIR PRODUCTO",
+    "EditclientsTitle":"EDITAR CLIENTES"
     
 }

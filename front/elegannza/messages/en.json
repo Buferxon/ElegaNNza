@@ -6,6 +6,14 @@
     "clients":"Clients",
     "products":"Products",
     "sellings": "Sellings",
-    "admin": "Management"
-
+    "admin": "Management",
+    "clientsTitle": "CLIENTS",
+    "nameLN": "Name and Lastname",
+    "user_name": "User name",
+    "identification":"Identification",
+    "actions":"Actions",
+    "productsTitle": "PRODUCTS",
+    "adminsTitle":"MANAGEMENT",
+    "AddProductTitle":"ADD ITEM",
+    "EditclientsTitle":"EDIT COSTUMERS"
 }

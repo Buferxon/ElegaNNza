@@ -64,15 +64,15 @@ function Sidebar() {
 		<i className="bi bi-caret-left-fill"></i>
 		</button>
         <aside className='sidebar' data-collapse={isCollapsed}>
-            <div className='sidebar__top'>
+            <div className='sidebar__top' >
                 <img               
-                src="./next.svg"
+                src="../LOGO.png"
                 // width={80}
                 // height={80}
                 className='sidebar__logo'
                 alt="logo"
                 />
-                <p className='sidebar_logo_name'>Progresa</p>
+                <p className='sidebar_logo_name'>ElegaNNza</p>
             </div>
         <ul className='sidebar__list'>
 

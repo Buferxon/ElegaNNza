@@ -46,45 +46,48 @@
     padding-top: 18px;
 }
 
-.TableContainer{
-    width: 100%;
-    padding-block: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.TableClients{
-    width: 100%;
-    text-align: center;
-    border-collapse: separate;
-    color: white;
-}
-
-table{
-    border-color: white;
-    border: 2px solid white;
-    border-radius: 36px;
+.FormBox{
+    width: 95%;
+    margin-left: 19px;
+    margin-top: 20px;
     padding: 8px;
-    
-}
-
-th{
-    background-color: #D4427B;
+    border: 5px dotted white;
     border-radius: 30px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    z-index: 99;
 }
 
-td{
-    background-color: #070C20;
-    border-radius: 30px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-.EditBtn{
-    background-color: transparent;
-    border: none;
+.AddForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
     color: white;
-    position: relative;
+}
+
+.FirstHalf{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: start;
+}
+
+.FormClientInputs{
+    border-radius: 12px;
+    border: none;
+    margin-block: 15px;
+    margin-inline: 20px;
+    padding-inline: 6px;
+}
+
+.UploadBtn{
+    background-color: #D4427B;
+    color: white;
+    border: 2px dotted white;
+    border-radius: 10px;
+    font-size: x-large;
+    padding-inline: 12px;
+    margin-top: 8px;
 }

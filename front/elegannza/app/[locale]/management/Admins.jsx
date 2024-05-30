@@ -1,14 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
-import '../ui/Clients.css'
+import '../ui/Management.css'
 import '../Utilities/functions.jsx'
 import { datapostputdelget } from '../Utilities/functions.jsx'
 import { useTranslations } from 'next-intl';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useRouter } from 'next/navigation'
 
-function Clients() {
+function Admins() {
 
   const [data, setData] = useState([]);
   const router = useRouter();
@@ -17,7 +17,7 @@ function Clients() {
   const getClients = async () => {
 		try {
 
-			const query = await datapostputdelget("user?user_type=0","0", "GET");
+			const query = await datapostputdelget("user?user_type=1","0", "GET");
 			console.log(query);
       setData(query);
 		} catch (err) {
@@ -28,7 +28,7 @@ function Clients() {
   const handleEdit = (e, username) =>
     {
       e.preventDefault();
-      router.push(`./EditClient?username=${username}`);
+      router.push(`./editar?username=${username}`);
 
     }
 
@@ -49,11 +49,11 @@ function Clients() {
                 <div className='Content'>
 
                   <div className='Title'>
-                    <h1>{t("clientsTitle")}</h1>
+                    <h1>{t("adminsTitle")}</h1>
                   </div>
 
                   <div className='TableContainer'>
-                        <table className='TableClients'>
+                        <table className='TableAdmins'>
                             <thead>
                             <tr>
                                 <th>{t("nameLN")}</th>
@@ -66,14 +66,14 @@ function Clients() {
                             
 
                             {Array.isArray(data) &&
-                              data.map((client, index) => (
+                              data.map((admin, index) => (
                                 <tr>	
                                   
-                                  <td>{client.name} {client.last_name}</td>
-                                  <td>{client.user_name}</td>
-                                  <td>{client.identification_number}</td>
+                                  <td>{admin.name} {admin.last_name}</td>
+                                  <td>{admin.user_name}</td>
+                                  <td>{admin.identification_number}</td>
                                   <td>
-                                    <button className='EditBtn' type='button' onClick={(e)=>{handleEdit(e, client.user_name)}}>
+                                    <button className='EditBtn' type='button' onClick={(e)=>{handleEdit(e, admin.user_name)}}>
                                     <i className="bi bi-pencil-square"></i>
                                     </button>
                                   </td>
@@ -101,4 +101,4 @@ function Clients() {
   )
 }
 
-export default Clients
+export default Admins

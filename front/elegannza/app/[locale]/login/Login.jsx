@@ -15,7 +15,7 @@ function login() {
   const [password, setPassword] = useState("");
   const [CurrentUrl, setCurrentUrl] = useState("");
   const [CurrentPage, setCurrentPage] = useState("");
-
+  const [data, setData] = useState({});
   const [cookie, setCookie] = useCookies(['NEXT_LOCALE']);
 
   const pathname = usePathname();
@@ -71,7 +71,7 @@ function login() {
 
     try {
 
-      await fetch("https://elegannza.onrender.com/login",
+     const res = await fetch("https://elegannza.onrender.com/login",
       {
         method:"POST",
 
@@ -83,16 +83,17 @@ function login() {
           user_name:userName,
           password:password
         })
+      })
 
-      }).then(response =>{
-        if(response.ok)
+      const data = await res.json();
+      console.log(data);
+      localStorage.setItem("JWT", data.authorization);
+      console.log(localStorage.getItem("JWT"));
+
+      if(localStorage.getItem("JWT"))
         {
           router.push(`/${cookie.NEXT_LOCALE}/dashboard`);
         }
-        else{
-          Alert("Credenciales incorrectas");
-        }
-      });
       
     } catch (error) {
       console.error(error);
