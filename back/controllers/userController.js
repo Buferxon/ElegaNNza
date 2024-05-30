@@ -3,6 +3,8 @@ const CryptoJS = require("crypto-js");
 const Joi = require("joi");
 require("dotenv").config();
 
+const { sendWelcomeEmail } = require("../config/mailer");
+
 const userSchema = Joi.object({
 	name: Joi.string().required(),
 	last_name: Joi.string().required(),
@@ -160,6 +162,10 @@ async function insertUsers(req, res) {
 		);
 
 		await collectionUser.insertMany(validUsers);
+
+		for (const user of validUsers) {
+			await sendWelcomeEmail(user);
+		}
 
 		res.status(200).json({
 			message: "Usuarios insertados exitosamente",
