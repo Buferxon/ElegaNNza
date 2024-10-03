@@ -1,0 +1,93 @@
+.bg{
+  
+    background-color: #070C20;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+}
+
+.bg-logo{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../public/LOGO.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 10%;
+    right: 8px;
+}
+
+.ContentBox{
+    display: flex;
+    width: 100%;
+}
+
+.Content{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Title{
+    width: 100%;
+    font-size: 40px;
+    background-color: #D4427B;
+    color: white;
+    height: 89px;
+    padding-left: 26px;
+    padding-top: 18px;
+}
+
+.FormBox{
+    width: 95%;
+    margin-left: 19px;
+    margin-top: 20px;
+    padding: 8px;
+    border: 5px dotted white;
+    border-radius: 30px;
+    z-index: 99;
+}
+
+.AddForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.FirstHalf{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 1px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    justify-items: start;
+}
+
+.FormClientInputs{
+    border-radius: 12px;
+    border: none;
+    margin-block: 15px;
+    margin-inline: 20px;
+    padding-inline: 6px;
+}
+
+.UploadBtn{
+    background-color: #D4427B;
+    color: white;
+    border: 2px dotted white;
+    border-radius: 10px;
+    font-size: x-large;
+    padding-inline: 12px;
+    margin-top: 8px;
+}

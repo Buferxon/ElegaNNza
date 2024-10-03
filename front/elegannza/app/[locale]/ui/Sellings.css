@@ -1,0 +1,90 @@
+.bg{
+  
+    background-color: #070C20;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+}
+
+.bg-logo{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../public/LOGO.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 10%;
+    right: 8px;
+}
+
+.ContentBox{
+    display: flex;
+    width: 100%;
+}
+
+.Content{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Title{
+    width: 100%;
+    font-size: 40px;
+    background-color: #D4427B;
+    color: white;
+    height: 89px;
+    padding-left: 26px;
+    padding-top: 18px;
+}
+
+.TableContainer{
+    width: 100%;
+    padding-block: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.TableClients{
+    width: 100%;
+    text-align: center;
+    border-collapse: separate;
+    color: white;
+}
+
+table{
+    border-color: white;
+    border: 2px solid white;
+    border-radius: 36px;
+    padding: 8px;
+    
+}
+
+th{
+    background-color: #D4427B;
+    border-radius: 30px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+td{
+    background-color: #070C20;
+    border-radius: 30px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.EditBtn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    position: relative;
+}
