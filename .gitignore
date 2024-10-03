@@ -1,3 +1,6 @@
 /back/node_modules/
 back/.env
+
 /front/node_modules
+node_modules
+
